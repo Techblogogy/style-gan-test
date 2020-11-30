@@ -32,6 +32,9 @@ def run(dataset, resolution, result_dir, DiffAugment, num_gpus, batch_size, tota
     grid = EasyDict(size='4k', layout='random')                           # Options for setup_snapshot_image_grid().
     sc = dnnlib.SubmitConfig()                                          # Options for dnnlib.submit_run().
     tf_config = {'rnd.np_random_seed': 1000}                                   # Options for tflib.init_tf().
+    
+    train.image_snapshot_ticks = 1
+    train.network_snapshot_ticks = 3
 
     # preprocess dataset into tfrecords
     dataset = dataset_tool.create_dataset(dataset, resolution)

@@ -150,6 +150,10 @@ def training_loop(
 
     # Construct or load networks.
     with tf.device('/gpu:0'):
+        if resume_pkl == 'latest':
+           # https://github.com/skyflynil/stylegan2/blob/master/training/training_loop.py
+           print("resuming from latest")
+           resume_pkl, resume_kimg = misc.locate_latest_pkl(dnnlib.submit_config.run_dir_root)
         if resume_pkl is None or resume_with_new_nets:
             print('Constructing networks...')
             G = tflib.Network('G', num_channels=training_set.shape[0], resolution=training_set.shape[1], label_size=training_set.label_size, **G_args)
